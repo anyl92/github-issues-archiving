@@ -32,7 +32,7 @@ const Select = ({
         />
       </div>
       <button type="button" onClick={getIssuesApiCall}>
-        제출
+        조회
       </button>
     </form>
   );

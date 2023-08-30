@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { getIssues } from "../apis/issues";
 import { ADV_LINK_URL } from "../utils/constants";
+import { getIssuesResponse } from "../utils/types";
 
 const useIssue = () => {
   const [owner, setOwner] = useState<string>("facebook");
   const [repo, setRepo] = useState<string>("react");
-  const [issueList, setIssueList] = useState<any>();
+  const [issueList, setIssueList] = useState<getIssuesResponse[] | undefined>();
   const [isError, setIsError] = useState<boolean>(false);
 
   const getIssuesApiCall = async () => {
