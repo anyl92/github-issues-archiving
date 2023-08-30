@@ -7,6 +7,7 @@ import IssueListError from "../components/IssueListError";
 
 import { createContext } from "react";
 import { IssuesContextType } from "../utils/types";
+import Loading from "../components/Loading";
 
 const IssuesContext = createContext<IssuesContextType | null>(null);
 
@@ -28,7 +29,7 @@ export const useFormContext = () => {
 };
 
 const MainPage = () => {
-  const { getIssuesApiCall, isError } = useFormContext();
+  const { getIssuesApiCall, isError, isLoading } = useFormContext();
 
   useEffect(() => {
     getIssuesApiCall();
@@ -37,7 +38,7 @@ const MainPage = () => {
   return (
     <Wrapper>
       <Select />
-      {isError ? <IssueListError /> : <IssueList />}
+      {isError ? <IssueListError /> : isLoading ? <Loading /> : <IssueList />}
     </Wrapper>
   );
 };

@@ -11,7 +11,6 @@ export interface IssueListProps {
 };
 
 export interface IssuesContextType {
-  getIssuesApiCall: () => Promise<void>;
   owner: string;
   setOwner: React.Dispatch<React.SetStateAction<string>>;
   repo: string;
@@ -19,6 +18,9 @@ export interface IssuesContextType {
   issueList: IssuesResponse[] | undefined;
   isError: boolean;
   setIsError: React.Dispatch<React.SetStateAction<boolean>>;
+  isLoading: boolean
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+  getIssuesApiCall: () => Promise<void>;
   isAdvView: (idx: number) => boolean;
   handleAdvClick: () => void;
 }

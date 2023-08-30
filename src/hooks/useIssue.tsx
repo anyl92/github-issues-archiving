@@ -8,17 +8,25 @@ const useIssue = () => {
   const [repo, setRepo] = useState<string>("react");
   const [issueList, setIssueList] = useState<IssuesResponse[] | undefined>();
   const [isError, setIsError] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const getIssuesApiCall = async () => {
     try {
       setIsError(false);
+      setIsLoading(true);
       const res = await getIssues(owner, repo);
-      if (res.status === 200) return setIssueList(res?.data);
+      if (res.status === 200) {
+        setIsLoading(false);
+        setIssueList(res?.data);
+        return;
+      }
       throw Error;
     } catch (err) {
       setIsError(true);
       console.error(err);
       return;
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -39,6 +47,8 @@ const useIssue = () => {
     issueList,
     isError,
     setIsError,
+    isLoading,
+    setIsLoading,
     getIssuesApiCall,
     isAdvView,
     handleAdvClick,
