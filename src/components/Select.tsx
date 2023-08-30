@@ -1,18 +1,8 @@
-type SelectProps = {
-  owner: string;
-  setOwner: any;
-  repo: string;
-  setRepo: any;
-  getIssuesApiCall: any;
-};
+import { useFormContext } from "../pages/MainPage";
 
-const Select = ({
-  owner,
-  setOwner,
-  repo,
-  setRepo,
-  getIssuesApiCall,
-}: SelectProps) => {
+const Select = () => {
+  const { getIssuesApiCall, owner, setOwner, repo, setRepo } = useFormContext();
+
   return (
     <form>
       <div>

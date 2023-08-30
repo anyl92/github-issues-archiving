@@ -1,4 +1,4 @@
-export type getIssuesResponse = {
+export interface IssuesResponse {
   number: number;
   title: string;
   user: {login: string;}
@@ -6,6 +6,19 @@ export type getIssuesResponse = {
   created_at: string;
 }
 
-export type IssueListProps = {
-  issueList: getIssuesResponse[] | undefined;
+export interface IssueListProps {
+  issueList: IssuesResponse[] | undefined;
 };
+
+export interface IssuesContextType {
+  getIssuesApiCall: () => Promise<void>;
+  owner: string;
+  setOwner: React.Dispatch<React.SetStateAction<string>>;
+  repo: string;
+  setRepo: React.Dispatch<React.SetStateAction<string>>;
+  issueList: IssuesResponse[] | undefined;
+  isError: boolean;
+  setIsError: React.Dispatch<React.SetStateAction<boolean>>;
+  isAdvView: (idx: number) => boolean;
+  handleAdvClick: () => void;
+}

@@ -1,14 +1,14 @@
-import { IssueListProps, getIssuesResponse } from "../utils/types";
-import useIssue from "../hooks/useIssue";
+import { IssuesResponse } from "../utils/types";
 import { ADV_IMG_SRC, ADV_IMG_ALT } from "../utils/constants";
 import { styled } from "styled-components";
+import { useFormContext } from "../pages/MainPage";
 
-const IssueList = ({ issueList }: IssueListProps) => {
-  const { isAdvView, handleAdvClick } = useIssue();
+const IssueList = () => {
+  const { issueList, isAdvView, handleAdvClick } = useFormContext();
 
   return (
     <>
-      {issueList?.map((issue: getIssuesResponse, idx: number) => (
+      {issueList?.map((issue: IssuesResponse, idx: number) => (
         <div key={idx}>
           <IssuesWrapper>
             <div>
