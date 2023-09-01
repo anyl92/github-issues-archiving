@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getIssues } from "../apis/issues";
 import { ADV_LINK_URL, ISSUES_PER_PAGE } from "../utils/constants";
 import { IssuesResponse } from "../utils/types";
@@ -57,6 +57,10 @@ const useIssue = () => {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    getIssuesApiCall("scroll");
+  }, []);
 
   const isAdvView = (idx: number) => {
     return (idx + 1) % 4 === 0;

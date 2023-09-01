@@ -32,10 +32,6 @@ const MainPage = () => {
     return () => observer && observer.disconnect();
   }, [handleObserver]);
 
-  useEffect(() => {
-    getIssuesApiCall("scroll");
-  }, []);
-
   return (
     <Wrapper>
       <Select />
