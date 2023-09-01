@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getIssues } from "../apis/issues";
 import { ADV_LINK_URL, ISSUES_PER_PAGE } from "../utils/constants";
 import { IssuesResponse } from "../utils/types";
@@ -11,6 +11,7 @@ const useIssue = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [pageNo, setpageNo] = useState<number>(1);
   const [isPageEnd, setIsPageEnd] = useState(false);
+  const [isSelected, setIsSelected] = useState<boolean>(false);
 
   const filterPureIssue = (data: IssuesResponse[]) =>
     data.filter((issue) => !issue.pull_request);
@@ -37,18 +38,19 @@ const useIssue = () => {
       if (res.status === 200) {
         setIsLoading(false);
         setIsPageEnd(res.data.length < ISSUES_PER_PAGE);
-
         if (requestPageNo !== 1) {
           updateIssueList(filterPureIssue(res.data));
         } else {
           getIssueList(filterPureIssue(res.data));
         }
         setpageNo(pageNo + 1);
+        setIsSelected(mode === "select");
         return;
       }
       throw Error;
     } catch (err) {
       setIsError(true);
+      setIssueList([]);
       console.error(err);
       return;
     } finally {
@@ -57,17 +59,13 @@ const useIssue = () => {
   };
 
   const isAdvView = (idx: number) => {
-    return (idx + 1) % 5 === 0;
+    return (idx + 1) % 4 === 0;
   };
 
   const handleAdvClick = () => {
     window.open(ADV_LINK_URL);
     return;
   };
-
-  useEffect(() => {
-    getIssuesApiCall("scroll");
-  }, []);
 
   return {
     owner,
@@ -83,6 +81,7 @@ const useIssue = () => {
     isAdvView,
     handleAdvClick,
     isPageEnd,
+    isSelected,
   };
 };
 

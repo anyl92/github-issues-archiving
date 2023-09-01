@@ -25,4 +25,5 @@ export interface IssuesContextType {
   isAdvView: (idx: number) => boolean;
   handleAdvClick: () => void;
   isPageEnd: boolean;
+  isSelected: boolean;
 }

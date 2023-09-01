@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
-import Select from "../components/Select";
-import IssueList from "../components/IssueList";
-import IssueListError from "../components/IssueListError";
+import Select from "../components/Issues/Select";
+import IssueList from "../components/Issues/IssueList";
+import IssueListError from "../components/Issues/IssueListError";
 
 import Loading from "../components/Loading";
 import { useIssuesContext } from "../hooks/useIssuesContext";
@@ -11,7 +11,7 @@ const MainPage = () => {
   const { isError, isLoading, isPageEnd, getIssuesApiCall, issueList } =
     useIssuesContext();
 
-  const loadMoreRef = useRef(null);
+  const loadMoreRef = useRef<HTMLDivElement>(null);
   const handleObserver = useCallback(
     async (
       [entry]: IntersectionObserverEntry[],
@@ -32,14 +32,18 @@ const MainPage = () => {
     return () => observer && observer.disconnect();
   }, [handleObserver]);
 
+  useEffect(() => {
+    getIssuesApiCall("scroll");
+  }, []);
+
   return (
     <Wrapper>
       <Select />
       {isError && <IssueListError />}
       <IssueList />
       {isLoading && <Loading />}
-      {!isPageEnd && !isLoading && (
-        <LoadMoreBox ref={loadMoreRef}></LoadMoreBox>
+      {!isPageEnd && !isLoading && !isError && (
+        <LoadMoreBox ref={loadMoreRef}>more</LoadMoreBox>
       )}
     </Wrapper>
   );

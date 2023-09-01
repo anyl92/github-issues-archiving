@@ -1,4 +1,4 @@
-import { useIssuesContext } from "../hooks/useIssuesContext";
+import { useIssuesContext } from "../../hooks/useIssuesContext";
 
 const Select = () => {
   const { getIssuesApiCall, owner, setOwner, repo, setRepo } =
