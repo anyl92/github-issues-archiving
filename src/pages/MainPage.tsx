@@ -1,44 +1,46 @@
-import { useContext, useEffect } from "react";
 import { styled } from "styled-components";
 import Select from "../components/Select";
 import IssueList from "../components/IssueList";
-import useIssue from "../hooks/useIssue";
 import IssueListError from "../components/IssueListError";
 
-import { createContext } from "react";
-import { IssuesContextType } from "../utils/types";
 import Loading from "../components/Loading";
-
-const IssuesContext = createContext<IssuesContextType | null>(null);
-
-export const IssuesProvider = ({ children }: any) => {
-  const issueState = useIssue();
-  return (
-    <IssuesContext.Provider value={{ ...issueState }}>
-      {children}
-    </IssuesContext.Provider>
-  );
-};
-
-export const useFormContext = () => {
-  const context = useContext(IssuesContext);
-  if (context === null) {
-    throw Error("FormContext is null!");
-  }
-  return context;
-};
+import { useIssuesContext } from "../hooks/useIssuesContext";
+import { useCallback, useEffect, useRef } from "react";
 
 const MainPage = () => {
-  const { getIssuesApiCall, isError, isLoading } = useFormContext();
+  const { isError, isLoading, isPageEnd, getIssuesApiCall, issueList } =
+    useIssuesContext();
+
+  const loadMoreRef = useRef(null);
+  const handleObserver = useCallback(
+    async (
+      [entry]: IntersectionObserverEntry[],
+      observer: IntersectionObserver
+    ) => {
+      if (!entry.isIntersecting) return;
+      observer.unobserve(entry.target);
+      await getIssuesApiCall("scroll");
+      observer.observe(entry.target);
+    },
+    [issueList]
+  );
 
   useEffect(() => {
-    getIssuesApiCall();
-  }, []);
+    if (!loadMoreRef.current) return;
+    const observer = new IntersectionObserver(handleObserver);
+    loadMoreRef.current && observer.observe(loadMoreRef.current);
+    return () => observer && observer.disconnect();
+  }, [handleObserver]);
 
   return (
     <Wrapper>
       <Select />
-      {isError ? <IssueListError /> : isLoading ? <Loading /> : <IssueList />}
+      {isError && <IssueListError />}
+      <IssueList />
+      {isLoading && <Loading />}
+      {!isPageEnd && !isLoading && (
+        <LoadMoreBox ref={loadMoreRef}></LoadMoreBox>
+      )}
     </Wrapper>
   );
 };
@@ -47,6 +49,10 @@ const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   padding: 20px;
+`;
+
+const LoadMoreBox = styled.div`
+  visibility: hidden;
 `;
 
 export default MainPage;

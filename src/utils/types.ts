@@ -4,6 +4,7 @@ export interface IssuesResponse {
   user: {login: string;}
   comments: number;
   created_at: string;
+  pull_request: object
 }
 
 export interface IssueListProps {
@@ -15,12 +16,13 @@ export interface IssuesContextType {
   setOwner: React.Dispatch<React.SetStateAction<string>>;
   repo: string;
   setRepo: React.Dispatch<React.SetStateAction<string>>;
-  issueList: IssuesResponse[] | undefined;
+  issueList: IssuesResponse[];
   isError: boolean;
   setIsError: React.Dispatch<React.SetStateAction<boolean>>;
-  isLoading: boolean
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
-  getIssuesApiCall: () => Promise<void>;
+  isLoading: boolean;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  getIssuesApiCall: (mode: string) => Promise<void>;
   isAdvView: (idx: number) => boolean;
   handleAdvClick: () => void;
+  isPageEnd: boolean;
 }

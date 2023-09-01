@@ -1,10 +1,10 @@
 import { IssuesResponse } from "../utils/types";
 import { ADV_IMG_SRC, ADV_IMG_ALT } from "../utils/constants";
 import { styled } from "styled-components";
-import { useFormContext } from "../pages/MainPage";
+import { useIssuesContext } from "../hooks/useIssuesContext";
 
 const IssueList = () => {
-  const { issueList, isAdvView, handleAdvClick } = useFormContext();
+  const { issueList, isAdvView, handleAdvClick } = useIssuesContext();
 
   return (
     <>

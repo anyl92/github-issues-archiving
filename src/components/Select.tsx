@@ -1,7 +1,8 @@
-import { useFormContext } from "../pages/MainPage";
+import { useIssuesContext } from "../hooks/useIssuesContext";
 
 const Select = () => {
-  const { getIssuesApiCall, owner, setOwner, repo, setRepo } = useFormContext();
+  const { getIssuesApiCall, owner, setOwner, repo, setRepo } =
+    useIssuesContext();
 
   return (
     <form>
@@ -21,7 +22,7 @@ const Select = () => {
           value={repo}
         />
       </div>
-      <button type="button" onClick={getIssuesApiCall}>
+      <button type="button" onClick={() => getIssuesApiCall("select")}>
         조회
       </button>
     </form>

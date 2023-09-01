@@ -1,6 +1,6 @@
 import { createGlobalStyle, styled } from "styled-components";
 import PageRouter from "./pages/PageRouters";
-import { IssuesProvider } from "./pages/MainPage";
+import { IssuesProvider } from "./store/IssuesContext";
 
 function App() {
   return (
