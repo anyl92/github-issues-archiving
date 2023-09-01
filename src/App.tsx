@@ -1,12 +1,14 @@
 import { createGlobalStyle, styled } from "styled-components";
 import PageRouter from "./pages/PageRouters";
 import { IssuesProvider } from "./store/IssuesContext";
+import Header from "./components/Header/Header";
 
 function App() {
   return (
     <CommonLayout>
       <IssuesProvider>
         <GlobalStyle />
+        <Header />
         <PageRouter />
       </IssuesProvider>
     </CommonLayout>
