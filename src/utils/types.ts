@@ -1,10 +1,14 @@
 export interface IssuesResponse {
   number: number;
   title: string;
-  user: {login: string;}
+  user: {
+    login: string;
+    avatar_url: string;
+  }
   comments: number;
   created_at: string;
-  pull_request: object
+  pull_request: object;
+  body: string;
 }
 
 export interface IssueListProps {

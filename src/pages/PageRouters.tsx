@@ -9,7 +9,7 @@ function PageRouter() {
     <BrowserRouter>
       <Routes>
         <Route index element={<MainPage />} />
-        <Route path="/detail" element={<DetailPage />} />
+        <Route path="/issue/:number" element={<DetailPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
