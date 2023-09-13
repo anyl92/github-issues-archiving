@@ -27,5 +27,7 @@ http://localhost:3000 에서 확인하실 수 있습니다.
 https://github.com/anyl92/github-issues-archiving/assets/52682692/61e6039d-1c44-45fa-a9e2-b5edb2e5d8c7
 
 
+### 해당 과제 팀 레포
+https://github.com/wanted-pre-onboarding-team-12th-7/pre-onboarding-12th-2-7
 
 감사합니다.
